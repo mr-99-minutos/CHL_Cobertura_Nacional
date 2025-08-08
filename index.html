@@ -82,11 +82,11 @@
             // Agregar la fuente GeoJSON
             map.addSource('geojson-data', {
                 'type': 'geojson',
-                'data': './Cobertura_Nacional_30072025_1_TI_AC.geojson' // Ruta al archivo GeoJSON
+                'data': './Cobertura_Nacional_30072025_2.geojson' // Ruta al archivo GeoJSON
             });
 
             // Leer el GeoJSON y asignar colores aleatorios
-            fetch('./Cobertura_Nacional_30072025_1_TI_AC.geojson')
+            fetch('./Cobertura_Nacional_30072025_2.geojson')
                 .then(response => response.json())
                 .then(data => {
                     // Asignar colores a los nombres únicos
@@ -104,14 +104,16 @@
                         'type': 'fill',
                         'source': 'geojson-data',
                         'paint': {
-                            'fill-color': [
-                                'case',
-                                ['==', ['get', 'station'], 'FC'],
-                                '#00ffff',  // 💙 Celeste si station == FC
-                                '#12f200'   // ✅ Verde por defecto
-                            ],
+                        'fill-color': [
+                            'case',
+                            ['==', ['get', 'station'], 'FC'], '#ADD8E5',      // 💙 Celeste si station == FC
+                            ['==', ['get', 'zona'], 'FRU'], '#893ae5',         //  morado si zona == FRU
+                            ['==', ['get', 'zona'], 'RU'], '#00FF00',          // 🟢 Verde si zona == RU
+                            '#85C440'                                          // ✅ Color por defecto si nada coincide
+                        ],
 
-                            'fill-opacity': 0.2
+
+                            'fill-opacity': 0.3
                         }
                     });
 
